@@ -23,7 +23,7 @@ onPasswordChange = (event) => {
 }
 
    onSubmitSignIn = () => {
-        fetch('http://localhost:3002/register', {      //por defeito o fetch é um GET --> p/ fazer POST 2º param
+        fetch('https://cryptic-thicket-99647.herokuapp.com/register', {      //por defeito o fetch é um GET --> p/ fazer POST 2º param
             method: 'post',
             headers : {'Content-Type': 'application/json'},
             body: JSON.stringify({

@@ -19,7 +19,7 @@ class Signin extends React.Component {
     }
 
     onSubmitSignIn = () => {
-        fetch('http://localhost:3000/signin', {      //por defeito o fetch é um GET --> p/ fazer POST 2º param
+        fetch('https://cryptic-thicket-99647.herokuapp.com/signin', {      //por defeito o fetch é um GET --> p/ fazer POST 2º param
             method: 'post',
             headers : {'Content-Type': 'application/json'},
             body: JSON.stringify({
