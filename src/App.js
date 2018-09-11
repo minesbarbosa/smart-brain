@@ -8,12 +8,6 @@ import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
-import Clarifai from 'clarifai';
-
-
-const app = new Clarifai.App({
-    apiKey: '6861669b8bd64ba59696fd9712a42a91'
-});
 
 const particlesOptions = {
     particles: {
@@ -82,10 +76,14 @@ class App extends Component {
 
  onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL,
-        this.state.input)
+     fetch('https://cryptic-thicket-99647.herokuapp.com/imageurl', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              input: this.state.input
+            })
+          })
+      .then(response => response.json())
       .then(response => {
         if (response) {
           fetch('https://cryptic-thicket-99647.herokuapp.com//image', {
