@@ -43,15 +43,15 @@ class App extends Component {
         this.state = initialState;
     }
 
-    loadUser = (user) => {
-        this.setState(user: {
-               id: data.id,
-                name: data.name,
-                email: data.email,
-                entries: data.entries,
-                joined: data.joined
-        })        
-    }
+     loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    }})
+}
 
     calculateFaceLocation = (data) => {
         const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -86,7 +86,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('https://cryptic-thicket-99647.herokuapp.com//image', {
+          fetch('https://cryptic-thicket-99647.herokuapp.com/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -97,7 +97,7 @@ class App extends Component {
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count}))
             })
-
+            .catch(console.log)
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
       })
@@ -126,9 +126,14 @@ class App extends Component {
                     ?
                     <div>
                         <Logo/>
-                        <ImageLinkForm onInputChange={this.onInputChange}
-                                       onButtonSubmit={this.onButtonSubmit}/>
-                        <Rank name={this.state.user.name} entries={this.state.user.entries}/>
+                        <Rank 
+                            name={this.state.user.name} 
+                            entries={this.state.user.entries}
+                        />
+                        <ImageLinkForm 
+                            onInputChange={this.onInputChange}
+                             onButtonSubmit={this.onButtonSubmit}
+                        />
                         <FaceRecognition box={box} imageUrl={imageUrl}/>
                     </div>
                     : (
